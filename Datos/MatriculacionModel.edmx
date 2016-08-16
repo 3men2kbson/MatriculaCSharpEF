@@ -1,0 +1,786 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MatriculacionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="Id_Alumno" />
+          </Key>
+          <Property Name="Id_Alumno" Type="int" Nullable="false" />
+          <Property Name="Fecha_Inicio" Type="smalldatetime" />
+          <Property Name="Fecha_Egreso" Type="smalldatetime" />
+          <Property Name="Titulo_Admision" Type="nvarchar" MaxLength="50" />
+          <Property Name="Procedencia" Type="nvarchar" MaxLength="150" />
+          <Property Name="Reconocimiento_Año" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fecha_Acta_Grado" Type="smalldatetime" />
+          <Property Name="Nro_Acta_Grado" Type="nvarchar" MaxLength="10" />
+          <Property Name="Denominacion_T" Type="nvarchar" MaxLength="150" />
+          <Property Name="Fecha_Refrendacion" Type="smalldatetime" />
+          <Property Name="Nro_Refrendacion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nom_Proyecto_T" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_Persona" Type="int" />
+        </EntityType>
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="Cod_Asignatura" />
+          </Key>
+          <Property Name="Cod_Asignatura" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="150" />
+          <Property Name="Nro_Horas" Type="int" />
+          <Property Name="Nro_Creditos" Type="real" />
+          <Property Name="Asignatura_Previa" Type="int" />
+          <Property Name="Cod_Carrera" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Distribucion">
+          <Key>
+            <PropertyRef Name="Cod_Distribucion" />
+          </Key>
+          <Property Name="Cod_Distribucion" Type="int" Nullable="false" />
+          <Property Name="Cod_Semestre" Type="int" />
+          <Property Name="Id_Docente" Type="int" />
+          <Property Name="Cod_Asignatura" Type="int" />
+          <Property Name="Contador" Type="int" />
+          <Property Name="Cod_Periodo" Type="int" />
+        </EntityType>
+        <EntityType Name="Matricula">
+          <Key>
+            <PropertyRef Name="Cod_Matricula" />
+          </Key>
+          <Property Name="Cod_Matricula" Type="int" Nullable="false" />
+          <Property Name="Cod_Semestre" Type="int" Nullable="false" />
+          <Property Name="Id_Alumno" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="smalldatetime" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="20" />
+          <Property Name="Cod_Periodo" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="nvarchar" MaxLength="90" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Valor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cancelado" Type="bit" Nullable="false" />
+          <Property Name="Credito" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Matriculacion_Espam.dbo.Matricula_Asignatura' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Matricula_Asignatura">
+          <Key>
+            <PropertyRef Name="Cod_Asignatura" />
+            <PropertyRef Name="Estado" />
+          </Key>
+          <Property Name="Cod_Matricula" Type="int" />
+          <Property Name="Cod_Asignatura" Type="int" Nullable="false" />
+          <Property Name="Parametro_1" Type="real" />
+          <Property Name="Parametro_2" Type="real" />
+          <Property Name="Parametro_3" Type="real" />
+          <Property Name="Parametro_4" Type="real" />
+          <Property Name="Examen_Final" Type="real" />
+          <Property Name="Supletorio" Type="real" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Cod_Distribucion" Type="int" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="PaisCodigo" />
+          </Key>
+          <Property Name="PaisCodigo" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="PaisNombre" Type="char" MaxLength="52" Nullable="false" />
+          <Property Name="PaisContinente" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PaisRegion" Type="varchar" MaxLength="26" Nullable="false" />
+          <Property Name="PaisArea" Type="float" Nullable="false" />
+          <Property Name="PaisIndependencia" Type="smallint" />
+          <Property Name="PaisPoblacion" Type="int" Nullable="false" />
+          <Property Name="PaisExpectativaDeVida" Type="float" />
+          <Property Name="PaisProductoInternoBruto" Type="float" />
+          <Property Name="PaisProductoInternoBrutoAntiguo" Type="float" />
+          <Property Name="PaisNombreLocal" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PaisGobierno" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PaisJefeDeEstado" Type="varchar" MaxLength="60" />
+          <Property Name="PaisCapital" Type="int" />
+          <Property Name="PaisCodigo2" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="Id_Persona" />
+          </Key>
+          <Property Name="Id_Persona" Type="int" Nullable="false" />
+          <Property Name="Nombres" Type="nvarchar" MaxLength="50" />
+          <Property Name="Apellido_1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Apellido_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cedula" Type="nvarchar" MaxLength="15" />
+          <Property Name="Genero" Type="nvarchar" MaxLength="20" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefono_D" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telefono_C" Type="nvarchar" MaxLength="20" />
+          <Property Name="Nacionalidad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Provincia_Nac" Type="nvarchar" MaxLength="50" />
+          <Property Name="Canton_Nac" Type="nvarchar" MaxLength="50" />
+          <Property Name="Parroquia_Nac" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fecha_Nac" Type="smalldatetime" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaisCodigo" Type="char" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="Semestre">
+          <Key>
+            <PropertyRef Name="Cod_Semestre" />
+          </Key>
+          <Property Name="Cod_Semestre" Type="int" Nullable="false" />
+          <Property Name="Semestre" Type="int" />
+          <Property Name="Paralelo" Type="nvarchar" MaxLength="1" />
+          <Property Name="Cod_Carrera" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Alumno_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id_Persona" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="Id_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Distribucion_Asignatura">
+          <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Distribucion" Type="Self.Distribucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Cod_Asignatura" />
+            </Principal>
+            <Dependent Role="Distribucion">
+              <PropertyRef Name="Cod_Asignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Distribucion_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Distribucion" Type="Self.Distribucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="Cod_Semestre" />
+            </Principal>
+            <Dependent Role="Distribucion">
+              <PropertyRef Name="Cod_Semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="Id_Alumno" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Id_Alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Asignatura_Asignatura">
+          <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matricula_Asignatura" Type="Self.Matricula_Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Cod_Asignatura" />
+            </Principal>
+            <Dependent Role="Matricula_Asignatura">
+              <PropertyRef Name="Cod_Asignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Asignatura_Distribucion">
+          <End Role="Distribucion" Type="Self.Distribucion" Multiplicity="0..1" />
+          <End Role="Matricula_Asignatura" Type="Self.Matricula_Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distribucion">
+              <PropertyRef Name="Cod_Distribucion" />
+            </Principal>
+            <Dependent Role="Matricula_Asignatura">
+              <PropertyRef Name="Cod_Distribucion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Asignatura_Matricula">
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matricula_Asignatura" Type="Self.Matricula_Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matricula">
+              <PropertyRef Name="Cod_Matricula" />
+            </Principal>
+            <Dependent Role="Matricula_Asignatura">
+              <PropertyRef Name="Cod_Matricula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="Cod_Semestre" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Cod_Semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persona_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="PaisCodigo" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="PaisCodigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MatriculacionModelStoreContainer">
+          <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Asignatura" EntityType="Self.Asignatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Distribucion" EntityType="Self.Distribucion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matricula" EntityType="Self.Matricula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Semestre" EntityType="Self.Semestre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matricula_Asignatura" EntityType="Self.Matricula_Asignatura" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Matricula_Asignatura].[Cod_Matricula] AS [Cod_Matricula], 
+    [Matricula_Asignatura].[Cod_Asignatura] AS [Cod_Asignatura], 
+    [Matricula_Asignatura].[Parametro_1] AS [Parametro_1], 
+    [Matricula_Asignatura].[Parametro_2] AS [Parametro_2], 
+    [Matricula_Asignatura].[Parametro_3] AS [Parametro_3], 
+    [Matricula_Asignatura].[Parametro_4] AS [Parametro_4], 
+    [Matricula_Asignatura].[Examen_Final] AS [Examen_Final], 
+    [Matricula_Asignatura].[Supletorio] AS [Supletorio], 
+    [Matricula_Asignatura].[Estado] AS [Estado], 
+    [Matricula_Asignatura].[Cod_Distribucion] AS [Cod_Distribucion]
+    FROM [dbo].[Matricula_Asignatura] AS [Matricula_Asignatura]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Alumno_Persona" Association="Self.FK_Alumno_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Alumno" EntitySet="Alumno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Distribucion_Asignatura" Association="Self.FK_Distribucion_Asignatura">
+            <End Role="Asignatura" EntitySet="Asignatura" />
+            <End Role="Distribucion" EntitySet="Distribucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Distribucion_Semestre" Association="Self.FK_Distribucion_Semestre">
+            <End Role="Semestre" EntitySet="Semestre" />
+            <End Role="Distribucion" EntitySet="Distribucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Alumno" Association="Self.FK_Matricula_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Asignatura_Asignatura" Association="Self.FK_Matricula_Asignatura_Asignatura">
+            <End Role="Asignatura" EntitySet="Asignatura" />
+            <End Role="Matricula_Asignatura" EntitySet="Matricula_Asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Asignatura_Distribucion" Association="Self.FK_Matricula_Asignatura_Distribucion">
+            <End Role="Distribucion" EntitySet="Distribucion" />
+            <End Role="Matricula_Asignatura" EntitySet="Matricula_Asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Asignatura_Matricula" Association="Self.FK_Matricula_Asignatura_Matricula">
+            <End Role="Matricula" EntitySet="Matricula" />
+            <End Role="Matricula_Asignatura" EntitySet="Matricula_Asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Semestre" Association="Self.FK_Matricula_Semestre">
+            <End Role="Semestre" EntitySet="Semestre" />
+            <End Role="Matricula" EntitySet="Matricula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_Pais" Association="Self.FK_Persona_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MatriculacionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="Id_Alumno" />
+          </Key>
+          <Property Name="Id_Alumno" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_Inicio" Type="DateTime" Precision="0" />
+          <Property Name="Fecha_Egreso" Type="DateTime" Precision="0" />
+          <Property Name="Titulo_Admision" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Procedencia" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Reconocimiento_Año" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha_Acta_Grado" Type="DateTime" Precision="0" />
+          <Property Name="Nro_Acta_Grado" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Denominacion_T" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha_Refrendacion" Type="DateTime" Precision="0" />
+          <Property Name="Nro_Refrendacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nom_Proyecto_T" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Persona" Type="Int32" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_Alumno_Persona" FromRole="Alumno" ToRole="Persona" />
+          <NavigationProperty Name="Matriculas" Relationship="Self.FK_Matricula_Alumno" FromRole="Alumno" ToRole="Matricula" />
+        </EntityType>
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="Cod_Asignatura" />
+          </Key>
+          <Property Name="Cod_Asignatura" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Nro_Horas" Type="Int32" />
+          <Property Name="Nro_Creditos" Type="Single" />
+          <Property Name="Asignatura_Previa" Type="Int32" />
+          <Property Name="Cod_Carrera" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Distribucions" Relationship="Self.FK_Distribucion_Asignatura" FromRole="Asignatura" ToRole="Distribucion" />
+          <NavigationProperty Name="Matricula_Asignatura" Relationship="Self.FK_Matricula_Asignatura_Asignatura" FromRole="Asignatura" ToRole="Matricula_Asignatura" />
+        </EntityType>
+        <EntityType Name="Distribucion">
+          <Key>
+            <PropertyRef Name="Cod_Distribucion" />
+          </Key>
+          <Property Name="Cod_Distribucion" Type="Int32" Nullable="false" />
+          <Property Name="Cod_Semestre" Type="Int32" />
+          <Property Name="Id_Docente" Type="Int32" />
+          <Property Name="Cod_Asignatura" Type="Int32" />
+          <Property Name="Contador" Type="Int32" />
+          <Property Name="Cod_Periodo" Type="Int32" />
+          <NavigationProperty Name="Asignatura" Relationship="Self.FK_Distribucion_Asignatura" FromRole="Distribucion" ToRole="Asignatura" />
+          <NavigationProperty Name="Semestre" Relationship="Self.FK_Distribucion_Semestre" FromRole="Distribucion" ToRole="Semestre" />
+          <NavigationProperty Name="Matricula_Asignatura" Relationship="Self.FK_Matricula_Asignatura_Distribucion" FromRole="Distribucion" ToRole="Matricula_Asignatura" />
+        </EntityType>
+        <EntityType Name="Matricula">
+          <Key>
+            <PropertyRef Name="Cod_Matricula" />
+          </Key>
+          <Property Name="Cod_Matricula" Type="Int32" Nullable="false" />
+          <Property Name="Cod_Semestre" Type="Int32" Nullable="false" />
+          <Property Name="Id_Alumno" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Cod_Periodo" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="Valor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cancelado" Type="Boolean" Nullable="false" />
+          <Property Name="Credito" Type="Int32" />
+          <NavigationProperty Name="Alumno" Relationship="Self.FK_Matricula_Alumno" FromRole="Matricula" ToRole="Alumno" />
+          <NavigationProperty Name="Matricula_Asignatura" Relationship="Self.FK_Matricula_Asignatura_Matricula" FromRole="Matricula" ToRole="Matricula_Asignatura" />
+          <NavigationProperty Name="Semestre" Relationship="Self.FK_Matricula_Semestre" FromRole="Matricula" ToRole="Semestre" />
+        </EntityType>
+        <EntityType Name="Pai">
+          <Key>
+            <PropertyRef Name="PaisCodigo" />
+          </Key>
+          <Property Name="PaisCodigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PaisNombre" Type="String" MaxLength="52" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PaisContinente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaisRegion" Type="String" MaxLength="26" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaisArea" Type="Double" Nullable="false" />
+          <Property Name="PaisIndependencia" Type="Int16" />
+          <Property Name="PaisPoblacion" Type="Int32" Nullable="false" />
+          <Property Name="PaisExpectativaDeVida" Type="Double" />
+          <Property Name="PaisProductoInternoBruto" Type="Double" />
+          <Property Name="PaisProductoInternoBrutoAntiguo" Type="Double" />
+          <Property Name="PaisNombreLocal" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaisGobierno" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaisJefeDeEstado" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="PaisCapital" Type="Int32" />
+          <Property Name="PaisCodigo2" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Personas" Relationship="MatriculacionModel.FK_Persona_Pais" FromRole="Pai" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="Id_Persona" />
+          </Key>
+          <Property Name="Id_Persona" Type="Int32" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cedula" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Genero" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono_D" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono_C" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nacionalidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Provincia_Nac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Canton_Nac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parroquia_Nac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha_Nac" Type="DateTime" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaisCodigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Alumnoes" Relationship="Self.FK_Alumno_Persona" FromRole="Persona" ToRole="Alumno" />
+          <NavigationProperty Name="Pai" Relationship="MatriculacionModel.FK_Persona_Pais" FromRole="Persona" ToRole="Pai" />
+        </EntityType>
+        <EntityType Name="Semestre">
+          <Key>
+            <PropertyRef Name="Cod_Semestre" />
+          </Key>
+          <Property Name="Cod_Semestre" Type="Int32" Nullable="false" />
+          <Property Name="Semestre1" Type="Int32" />
+          <Property Name="Paralelo" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Cod_Carrera" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Distribucions" Relationship="Self.FK_Distribucion_Semestre" FromRole="Semestre" ToRole="Distribucion" />
+          <NavigationProperty Name="Matriculas" Relationship="Self.FK_Matricula_Semestre" FromRole="Semestre" ToRole="Matricula" />
+        </EntityType>
+        <EntityType Name="Matricula_Asignatura">
+          <Key>
+            <PropertyRef Name="Cod_Asignatura" />
+            <PropertyRef Name="Estado" />
+          </Key>
+          <Property Name="Cod_Matricula" Type="Int32" />
+          <Property Name="Cod_Asignatura" Type="Int32" Nullable="false" />
+          <Property Name="Parametro_1" Type="Single" />
+          <Property Name="Parametro_2" Type="Single" />
+          <Property Name="Parametro_3" Type="Single" />
+          <Property Name="Parametro_4" Type="Single" />
+          <Property Name="Examen_Final" Type="Single" />
+          <Property Name="Supletorio" Type="Single" />
+          <Property Name="Estado" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cod_Distribucion" Type="Int32" />
+          <NavigationProperty Name="Asignatura" Relationship="Self.FK_Matricula_Asignatura_Asignatura" FromRole="Matricula_Asignatura" ToRole="Asignatura" />
+          <NavigationProperty Name="Distribucion" Relationship="Self.FK_Matricula_Asignatura_Distribucion" FromRole="Matricula_Asignatura" ToRole="Distribucion" />
+          <NavigationProperty Name="Matricula" Relationship="Self.FK_Matricula_Asignatura_Matricula" FromRole="Matricula_Asignatura" ToRole="Matricula" />
+        </EntityType>
+        <Association Name="FK_Alumno_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id_Persona" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="Id_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="Id_Alumno" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Id_Alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Distribucion_Asignatura">
+          <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Distribucion" Type="Self.Distribucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Cod_Asignatura" />
+            </Principal>
+            <Dependent Role="Distribucion">
+              <PropertyRef Name="Cod_Asignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Asignatura_Asignatura">
+          <End Role="Asignatura" Type="Self.Asignatura" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matricula_Asignatura" Type="Self.Matricula_Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignatura">
+              <PropertyRef Name="Cod_Asignatura" />
+            </Principal>
+            <Dependent Role="Matricula_Asignatura">
+              <PropertyRef Name="Cod_Asignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Distribucion_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Distribucion" Type="Self.Distribucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="Cod_Semestre" />
+            </Principal>
+            <Dependent Role="Distribucion">
+              <PropertyRef Name="Cod_Semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Asignatura_Distribucion">
+          <End Role="Distribucion" Type="Self.Distribucion" Multiplicity="0..1" />
+          <End Role="Matricula_Asignatura" Type="Self.Matricula_Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distribucion">
+              <PropertyRef Name="Cod_Distribucion" />
+            </Principal>
+            <Dependent Role="Matricula_Asignatura">
+              <PropertyRef Name="Cod_Distribucion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Asignatura_Matricula">
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matricula_Asignatura" Type="Self.Matricula_Asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matricula">
+              <PropertyRef Name="Cod_Matricula" />
+            </Principal>
+            <Dependent Role="Matricula_Asignatura">
+              <PropertyRef Name="Cod_Matricula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matricula_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Matricula" Type="Self.Matricula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="Cod_Semestre" />
+            </Principal>
+            <Dependent Role="Matricula">
+              <PropertyRef Name="Cod_Semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MatriculacionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumnoes" EntityType="Self.Alumno" />
+          <EntitySet Name="Asignaturas" EntityType="Self.Asignatura" />
+          <EntitySet Name="Distribucions" EntityType="Self.Distribucion" />
+          <EntitySet Name="Matriculas" EntityType="Self.Matricula" />
+          <EntitySet Name="Pais" EntityType="Self.Pai" />
+          <EntitySet Name="Personas" EntityType="Self.Persona" />
+          <EntitySet Name="Semestres" EntityType="Self.Semestre" />
+          <EntitySet Name="Matricula_Asignatura" EntityType="Self.Matricula_Asignatura" />
+          <AssociationSet Name="FK_Alumno_Persona" Association="Self.FK_Alumno_Persona">
+            <End Role="Persona" EntitySet="Personas" />
+            <End Role="Alumno" EntitySet="Alumnoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Alumno" Association="Self.FK_Matricula_Alumno">
+            <End Role="Alumno" EntitySet="Alumnoes" />
+            <End Role="Matricula" EntitySet="Matriculas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Distribucion_Asignatura" Association="Self.FK_Distribucion_Asignatura">
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+            <End Role="Distribucion" EntitySet="Distribucions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Asignatura_Asignatura" Association="Self.FK_Matricula_Asignatura_Asignatura">
+            <End Role="Asignatura" EntitySet="Asignaturas" />
+            <End Role="Matricula_Asignatura" EntitySet="Matricula_Asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Distribucion_Semestre" Association="Self.FK_Distribucion_Semestre">
+            <End Role="Semestre" EntitySet="Semestres" />
+            <End Role="Distribucion" EntitySet="Distribucions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Asignatura_Distribucion" Association="Self.FK_Matricula_Asignatura_Distribucion">
+            <End Role="Distribucion" EntitySet="Distribucions" />
+            <End Role="Matricula_Asignatura" EntitySet="Matricula_Asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Asignatura_Matricula" Association="Self.FK_Matricula_Asignatura_Matricula">
+            <End Role="Matricula" EntitySet="Matriculas" />
+            <End Role="Matricula_Asignatura" EntitySet="Matricula_Asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matricula_Semestre" Association="Self.FK_Matricula_Semestre">
+            <End Role="Semestre" EntitySet="Semestres" />
+            <End Role="Matricula" EntitySet="Matriculas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_Pais" Association="MatriculacionModel.FK_Persona_Pais">
+            <End Role="Pai" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Personas" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Persona_Pais">
+          <End Type="MatriculacionModel.Pai" Role="Pai" Multiplicity="0..1" />
+          <End Type="MatriculacionModel.Persona" Role="Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pai">
+              <PropertyRef Name="PaisCodigo" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="PaisCodigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MatriculacionModelStoreContainer" CdmEntityContainer="MatriculacionEntities">
+          <EntitySetMapping Name="Alumnoes">
+            <EntityTypeMapping TypeName="MatriculacionModel.Alumno">
+              <MappingFragment StoreEntitySet="Alumno">
+                <ScalarProperty Name="Id_Alumno" ColumnName="Id_Alumno" />
+                <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
+                <ScalarProperty Name="Fecha_Egreso" ColumnName="Fecha_Egreso" />
+                <ScalarProperty Name="Titulo_Admision" ColumnName="Titulo_Admision" />
+                <ScalarProperty Name="Procedencia" ColumnName="Procedencia" />
+                <ScalarProperty Name="Reconocimiento_Año" ColumnName="Reconocimiento_Año" />
+                <ScalarProperty Name="Fecha_Acta_Grado" ColumnName="Fecha_Acta_Grado" />
+                <ScalarProperty Name="Nro_Acta_Grado" ColumnName="Nro_Acta_Grado" />
+                <ScalarProperty Name="Denominacion_T" ColumnName="Denominacion_T" />
+                <ScalarProperty Name="Fecha_Refrendacion" ColumnName="Fecha_Refrendacion" />
+                <ScalarProperty Name="Nro_Refrendacion" ColumnName="Nro_Refrendacion" />
+                <ScalarProperty Name="Nom_Proyecto_T" ColumnName="Nom_Proyecto_T" />
+                <ScalarProperty Name="Id_Persona" ColumnName="Id_Persona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Asignaturas">
+            <EntityTypeMapping TypeName="MatriculacionModel.Asignatura">
+              <MappingFragment StoreEntitySet="Asignatura">
+                <ScalarProperty Name="Cod_Asignatura" ColumnName="Cod_Asignatura" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Nro_Horas" ColumnName="Nro_Horas" />
+                <ScalarProperty Name="Nro_Creditos" ColumnName="Nro_Creditos" />
+                <ScalarProperty Name="Asignatura_Previa" ColumnName="Asignatura_Previa" />
+                <ScalarProperty Name="Cod_Carrera" ColumnName="Cod_Carrera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distribucions">
+            <EntityTypeMapping TypeName="MatriculacionModel.Distribucion">
+              <MappingFragment StoreEntitySet="Distribucion">
+                <ScalarProperty Name="Cod_Distribucion" ColumnName="Cod_Distribucion" />
+                <ScalarProperty Name="Cod_Semestre" ColumnName="Cod_Semestre" />
+                <ScalarProperty Name="Id_Docente" ColumnName="Id_Docente" />
+                <ScalarProperty Name="Cod_Asignatura" ColumnName="Cod_Asignatura" />
+                <ScalarProperty Name="Contador" ColumnName="Contador" />
+                <ScalarProperty Name="Cod_Periodo" ColumnName="Cod_Periodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matriculas">
+            <EntityTypeMapping TypeName="MatriculacionModel.Matricula">
+              <MappingFragment StoreEntitySet="Matricula">
+                <ScalarProperty Name="Cod_Matricula" ColumnName="Cod_Matricula" />
+                <ScalarProperty Name="Cod_Semestre" ColumnName="Cod_Semestre" />
+                <ScalarProperty Name="Id_Alumno" ColumnName="Id_Alumno" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Cod_Periodo" ColumnName="Cod_Periodo" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Cancelado" ColumnName="Cancelado" />
+                <ScalarProperty Name="Credito" ColumnName="Credito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="MatriculacionModel.Pai">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="PaisCodigo" ColumnName="PaisCodigo" />
+                <ScalarProperty Name="PaisNombre" ColumnName="PaisNombre" />
+                <ScalarProperty Name="PaisContinente" ColumnName="PaisContinente" />
+                <ScalarProperty Name="PaisRegion" ColumnName="PaisRegion" />
+                <ScalarProperty Name="PaisArea" ColumnName="PaisArea" />
+                <ScalarProperty Name="PaisIndependencia" ColumnName="PaisIndependencia" />
+                <ScalarProperty Name="PaisPoblacion" ColumnName="PaisPoblacion" />
+                <ScalarProperty Name="PaisExpectativaDeVida" ColumnName="PaisExpectativaDeVida" />
+                <ScalarProperty Name="PaisProductoInternoBruto" ColumnName="PaisProductoInternoBruto" />
+                <ScalarProperty Name="PaisProductoInternoBrutoAntiguo" ColumnName="PaisProductoInternoBrutoAntiguo" />
+                <ScalarProperty Name="PaisNombreLocal" ColumnName="PaisNombreLocal" />
+                <ScalarProperty Name="PaisGobierno" ColumnName="PaisGobierno" />
+                <ScalarProperty Name="PaisJefeDeEstado" ColumnName="PaisJefeDeEstado" />
+                <ScalarProperty Name="PaisCapital" ColumnName="PaisCapital" />
+                <ScalarProperty Name="PaisCodigo2" ColumnName="PaisCodigo2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="MatriculacionModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="Id_Persona" ColumnName="Id_Persona" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellido_1" ColumnName="Apellido_1" />
+                <ScalarProperty Name="Apellido_2" ColumnName="Apellido_2" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono_D" ColumnName="Telefono_D" />
+                <ScalarProperty Name="Telefono_C" ColumnName="Telefono_C" />
+                <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+                <ScalarProperty Name="Provincia_Nac" ColumnName="Provincia_Nac" />
+                <ScalarProperty Name="Canton_Nac" ColumnName="Canton_Nac" />
+                <ScalarProperty Name="Parroquia_Nac" ColumnName="Parroquia_Nac" />
+                <ScalarProperty Name="Fecha_Nac" ColumnName="Fecha_Nac" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PaisCodigo" ColumnName="PaisCodigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Semestres">
+            <EntityTypeMapping TypeName="MatriculacionModel.Semestre">
+              <MappingFragment StoreEntitySet="Semestre">
+                <ScalarProperty Name="Cod_Semestre" ColumnName="Cod_Semestre" />
+                <ScalarProperty Name="Semestre1" ColumnName="Semestre" />
+                <ScalarProperty Name="Paralelo" ColumnName="Paralelo" />
+                <ScalarProperty Name="Cod_Carrera" ColumnName="Cod_Carrera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matricula_Asignatura">
+            <EntityTypeMapping TypeName="MatriculacionModel.Matricula_Asignatura">
+              <MappingFragment StoreEntitySet="Matricula_Asignatura">
+                <ScalarProperty Name="Cod_Matricula" ColumnName="Cod_Matricula" />
+                <ScalarProperty Name="Cod_Asignatura" ColumnName="Cod_Asignatura" />
+                <ScalarProperty Name="Parametro_1" ColumnName="Parametro_1" />
+                <ScalarProperty Name="Parametro_2" ColumnName="Parametro_2" />
+                <ScalarProperty Name="Parametro_3" ColumnName="Parametro_3" />
+                <ScalarProperty Name="Parametro_4" ColumnName="Parametro_4" />
+                <ScalarProperty Name="Examen_Final" ColumnName="Examen_Final" />
+                <ScalarProperty Name="Supletorio" ColumnName="Supletorio" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Cod_Distribucion" ColumnName="Cod_Distribucion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

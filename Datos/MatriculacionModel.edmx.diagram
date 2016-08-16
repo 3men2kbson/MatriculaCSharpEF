@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3f1c9ae0dc604923bfaa3a7acd1f689f" Name="Diagram1">
+        <EntityTypeShape EntityType="MatriculacionModel.Alumno" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MatriculacionModel.Asignatura" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MatriculacionModel.Distribucion" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MatriculacionModel.Matricula" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MatriculacionModel.Pai" Width="1.5" PointX="5.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MatriculacionModel.Persona" Width="1.5" PointX="1.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MatriculacionModel.Semestre" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MatriculacionModel.Matricula_Asignatura" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="MatriculacionModel.FK_Alumno_Persona" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculacionModel.FK_Matricula_Alumno" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculacionModel.FK_Distribucion_Asignatura" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculacionModel.FK_Matricula_Asignatura_Asignatura" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculacionModel.FK_Distribucion_Semestre" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculacionModel.FK_Matricula_Asignatura_Distribucion" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculacionModel.FK_Matricula_Asignatura_Matricula" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculacionModel.FK_Matricula_Semestre" ManuallyRouted="false" />
+        <AssociationConnector Association="MatriculacionModel.FK_Persona_Pais" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
